@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".Inscription">
+    tools:context=".activity.Inscription">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/signin"
+            android:id="@+id/retrofit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="50dp"
@@ -23,24 +23,37 @@
             android:textStyle="bold" />
 
         <EditText
+            android:id="@+id/nom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/nom"
-            android:layout_below="@id/signin"
-            android:background="#30ffffff"
-            android:hint="Nom utilisateur"
-            android:textColorHint="@color/white"
-            android:textColor="@color/white"
+            android:layout_below="@id/retrofit"
             android:layout_margin="10dp"
-            android:padding="20dp"
+            android:background="#30ffffff"
             android:drawableLeft="@drawable/ic_baseline_person_outline_24"
             android:drawablePadding="20dp"
-           />
+            android:hint="Nom"
+            android:padding="20dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
+
+        <EditText
+            android:id="@+id/prenom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/retrofit"
+            android:layout_margin="10dp"
+            android:background="#30ffffff"
+            android:drawableLeft="@drawable/ic_baseline_person_outline_24"
+            android:drawablePadding="20dp"
+            android:hint="Prénoms"
+            android:padding="20dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/username"
+            android:id="@+id/mail"
             android:background="#30ffffff"
             android:hint="Email"
             android:textColorHint="@color/white"
@@ -54,8 +67,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/password"
-            android:layout_below="@id/username"
+            android:id="@+id/mdp"
+            android:layout_below="@id/mail"
             android:background="#30ffffff"
             android:hint="Mot de Passe"
             android:textColorHint="@color/white"
@@ -67,16 +80,16 @@
             android:inputType="textPassword"/>
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
+            android:id="@+id/btnenregistrer"
+            android:layout_width="146dp"
             android:layout_height="wrap_content"
-            android:text="Valider"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
             android:background="@color/design_default_color_primary"
+            android:text="Enregistrer"
             android:textColor="@color/white"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_margin="20dp"
-            android:layout_gravity="center"/>
+            android:textStyle="bold" />
 
 
     </LinearLayout>

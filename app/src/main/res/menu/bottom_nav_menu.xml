@@ -2,18 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home"/>
+        android:id="@+id/navigation_game"
+        android:icon="@drawable/_316002_joystick_video_game_video_game_controller_controller_icon"
+        android:title="@string/title_game"/>
 
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard"/>
+        android:id="@+id/navigation_video"
+        android:icon="@drawable/bouton_jouer__1_"
+        android:title="@string/title_video"/>
 
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/title_notifications"/>
+
+    <item
+    android:id="@+id/navigation_compte"
+    android:icon="@drawable/_200769_user_avatar_profile_people_icon"
+    android:title="@string/title_compte"/>
 
 </menu>
