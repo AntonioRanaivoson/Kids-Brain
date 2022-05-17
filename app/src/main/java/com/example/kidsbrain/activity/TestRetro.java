@@ -2,11 +2,11 @@ package com.example.kidsbrain.activity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.kidsbrain.R;
 import com.example.kidsbrain.service.GetDataService;
 import com.example.kidsbrain.instance.RetrofitClientInstance;
@@ -27,7 +27,6 @@ public class TestRetro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_retro);
-
         progressDoalog = new ProgressDialog(TestRetro.this);
         progressDoalog.setMessage("Loading....");
         progressDoalog.show();
