@@ -25,7 +25,7 @@ public class Homes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homes);
         ActionBar bar= getSupportActionBar();
-        bar.setTitle("Kid Brain");
+        bar.setTitle("Kids Brain");
         bar.show();
         sharedPreferences= this.getSharedPreferences("userIdentity", Context.MODE_PRIVATE);
         //Initialize the BottomNavigationView and add listener to it
