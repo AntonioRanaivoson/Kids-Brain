@@ -96,4 +96,6 @@ public class VideoFragment extends Fragment {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getLayoutDirection());
         recyclerView.addItemDecoration(dividerItemDecoration);
     }
+
+
 }

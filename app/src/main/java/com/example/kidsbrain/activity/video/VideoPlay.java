@@ -1,97 +1,72 @@
 package com.example.kidsbrain.activity.video;
 
-import android.media.MediaPlayer;
-import android.net.Uri;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.MediaController;
 import android.widget.ProgressBar;
-import android.widget.VideoView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.brightcove.player.model.DeliveryType;
+import com.brightcove.player.model.Video;
+import com.brightcove.player.view.BrightcoveExoPlayerVideoView;
+import com.brightcove.player.view.BrightcovePlayer;
 import com.example.kidsbrain.R;
 
-public class VideoPlay extends AppCompatActivity {
-    VideoView videoView;
-    MediaController mediaController;
+public class VideoPlay extends BrightcovePlayer {
+    BrightcoveExoPlayerVideoView brightcoveExoPlayerVideoView;
     private ProgressBar progressBar;
-    private int mCurrentPosition = 0;
+    private Long mCurrentPosition = new Long(0);
     private static final String PLAYBACK_TIME = "play_time";
-    Uri uri;
-    public VideoPlay() {
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_play);
-        videoView = findViewById(R.id.videoView);
-        progressBar = findViewById(R.id.videoProgress);
+        setContentView(R.layout.activity_play_video);
+        brightcoveVideoView = (BrightcoveExoPlayerVideoView) findViewById(R.id.brightcove_video_view);
+        progressBar = findViewById(R.id.videoProgress2);
         Bundle b = getIntent().getExtras();
         String url ="" ;
-        if(b != null){
+        if(b != null) {
             url = b.getString("url");
-            Uri ur =  Uri.parse(url);
-            initializePlayer(ur);
             progressBar.setVisibility(View.VISIBLE);
             if(savedInstanceState != null){
-                mCurrentPosition = savedInstanceState.getInt(PLAYBACK_TIME);
+                mCurrentPosition = savedInstanceState.getLong(PLAYBACK_TIME);
             }
-            mediaController = new MediaController(this);
-            mediaController.setMediaPlayer(videoView);
-            videoView.setMediaController(mediaController);
+//            initializePlayer(url);
+            Video video = Video.createVideo(url, DeliveryType.MP4);
+            brightcoveVideoView.add(video);
+            if(mCurrentPosition > 0){
+                brightcoveVideoView.seekTo(mCurrentPosition);
+            }else{
+                brightcoveVideoView.seekTo(new Long(1));
+            }
+            brightcoveVideoView.start();
+
         }
         Handler handler = new Handler();
         final Runnable r = new Runnable() {
             @Override
             public void run() {
-                if(videoView.isPlaying()){
+                if(brightcoveVideoView.isPlaying()){
                     progressBar.setVisibility(View.GONE);
                 }else{
                     progressBar.setVisibility(View.VISIBLE);
                 }
-            handler.postDelayed(this,1000);
+                handler.postDelayed(this,1000);
             }
         };
         handler.postDelayed(r,0);
     }
-    private void initializePlayer(Uri videoUri){
-        videoView.setVideoURI(videoUri);
-        videoView.setOnPreparedListener(
-                new MediaPlayer.OnPreparedListener() {
-                    @Override
-                    public void onPrepared(MediaPlayer mp) {
-                        if(mCurrentPosition > 0){
-                            videoView.seekTo(mCurrentPosition);
-                        }else{
-                            videoView.seekTo(1);
-                        }
-                    }
-                }
-        );
-        videoView.setOnCompletionListener(
-                new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        videoView.seekTo(0);
-                        finish();
-                    }
-                }
-        );
-    }
+
     private void releasePlayer(){
-        videoView.stopPlayback();
+        brightcoveVideoView.stopPlayback();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.N){
-            videoView.pause();
+            brightcoveVideoView.pause();
         }
     }
 
@@ -104,6 +79,7 @@ public class VideoPlay extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(PLAYBACK_TIME, videoView.getCurrentPosition());
+        outState.putLong(PLAYBACK_TIME, brightcoveVideoView.getCurrentPositionLong());
     }
+
 }
