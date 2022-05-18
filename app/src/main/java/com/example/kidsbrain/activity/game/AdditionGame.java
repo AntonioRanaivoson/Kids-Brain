@@ -51,6 +51,8 @@ public class AdditionGame extends AppCompatActivity {
 
         if (ans == get_user_ans){
             tvResult.setText("CORRECTE!!");
+            run_reset();
+            tvResult.setText("CORRECTE!!");
         }
         else {
             tvResult.setText("INCORRECTE!!");
