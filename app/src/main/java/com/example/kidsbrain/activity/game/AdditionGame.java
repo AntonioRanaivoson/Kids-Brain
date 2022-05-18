@@ -1,4 +1,4 @@
-package com.example.kidsbrain.activity;
+package com.example.kidsbrain.activity.game;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;

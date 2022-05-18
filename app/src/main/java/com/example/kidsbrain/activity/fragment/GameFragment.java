@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,10 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.kidsbrain.R;
-import com.example.kidsbrain.activity.AdditionGame;
-import com.example.kidsbrain.activity.Homes;
-import com.example.kidsbrain.activity.Login;
-import com.example.kidsbrain.activity.MainActivity;
+import com.example.kidsbrain.activity.game.AdditionGame;
 
 public class GameFragment extends Fragment {
     private TextView game;
