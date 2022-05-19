@@ -50,6 +50,7 @@ dependencies {
     implementation 'org.mongodb:mongodb-driver:3.12.11'
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     implementation "com.brightcove.player:exoplayer2:6.18.1"
+    implementation "com.brightcove.player:android-thumbnail-plugin:6.13.0"
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

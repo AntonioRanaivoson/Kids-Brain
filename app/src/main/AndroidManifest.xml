@@ -19,7 +19,7 @@
         <activity android:name=".activity.Inscription" />
         <activity android:name=".activity.Login" />
         <activity android:name=".activity.TestRetro" />
-        <activity android:name=".activity.video.VideoPlay" />
+        <activity android:name=".activity.video.VideoPlay" android:screenOrientation="landscape"/>
         <activity
             android:name=".activity.Homes"
             android:label="Home" />

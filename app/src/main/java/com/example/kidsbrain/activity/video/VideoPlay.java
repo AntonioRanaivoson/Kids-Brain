@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.brightcove.player.event.EventType;
+import com.brightcove.player.mediacontroller.ThumbnailComponent;
 import com.brightcove.player.model.DeliveryType;
 import com.brightcove.player.model.Video;
 import com.brightcove.player.view.BrightcoveExoPlayerVideoView;
@@ -34,12 +36,14 @@ public class VideoPlay extends BrightcovePlayer {
             }
 //            initializePlayer(url);
             Video video = Video.createVideo(url, DeliveryType.MP4);
+            video.getThumbnail();
             brightcoveVideoView.add(video);
             if(mCurrentPosition > 0){
                 brightcoveVideoView.seekTo(mCurrentPosition);
             }else{
                 brightcoveVideoView.seekTo(new Long(1));
             }
+            brightcoveVideoView.getEventEmitter().emit(EventType.ENTER_FULL_SCREEN);
             brightcoveVideoView.start();
 
         }
