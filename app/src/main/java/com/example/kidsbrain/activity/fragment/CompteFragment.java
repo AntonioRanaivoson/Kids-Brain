@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.example.kidsbrain.activity.Login;
 public class CompteFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private Button deconnect;
+    TextView nom_prenom,nom,prenom,email;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
