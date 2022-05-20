@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,14 +19,18 @@ import com.example.kidsbrain.model.AuthenticationResponse;
 import com.example.kidsbrain.model.User;
 import com.example.kidsbrain.service.UserService;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
     User user;
+    String token;
     EditText login, password;
     Button btninscription, btnconnect;
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +40,7 @@ public class Login extends AppCompatActivity {
         login = (EditText) findViewById(R.id.login);
         password = (EditText) findViewById(R.id.password);
         btninscription = (Button) findViewById(R.id.btninscription);
+        sharedPreferences= this.getSharedPreferences("userIdentity", Context.MODE_PRIVATE);
         /**
          * Boutton ecran Inscription
          */
@@ -91,17 +97,15 @@ public class Login extends AppCompatActivity {
                  new Callback<AuthenticationResponse>() {
                      @Override
                      public void onResponse(Call<AuthenticationResponse> call, Response<AuthenticationResponse> response) {
-                         progressDialog.dismiss(); //dismiss progress dialog
+
                          if(response.body()!= null) {
                              user = response.body().getUser();
-                             doSave(response.body().getToken(),user.getLogin());
-                             Intent intent=new Intent(Login.this,Homes.class);
-                             startActivity(intent);
+                             token = response.body().getToken();
+                             doSave(progressDialog,token,response.body().getUser().getLogin());
                          }else {
                              Toast.makeText(Login.this, "Login ou mots de passe incorrecte", Toast.LENGTH_SHORT).show();
                          }
                      }
-
                      @Override
                      public void onFailure(Call<AuthenticationResponse> call, Throwable t) {
                          // if error occurs in network transaction then we can get the error in this method.
@@ -109,15 +113,34 @@ public class Login extends AppCompatActivity {
                          progressDialog.dismiss(); //dismiss progress dialog
                      }
                 });
+
     }
     /**
      * Fonction save preference
      */
-    public void doSave(String token,String login)  {
-        SharedPreferences sharedPreferences= this.getSharedPreferences("userIdentity", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("token", token);
-        editor.putString("login", login);
-        editor.apply();
+    public void doSave(ProgressDialog progressDialog,String token,String login)  {
+        UserService userservice = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
+        userservice.getUserConnected(login,"Bearer " + token).enqueue(
+                new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        progressDialog.dismiss(); //dismiss progress dialog
+                        Intent intent=new Intent(Login.this,Homes.class);
+                        startActivity(intent);
+                        User us = response.body();
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("token", token);
+                        editor.putString("login", us.getLogin());
+                        editor.putString("prenom", us.getFirstName());
+                        editor.putString("nom", us.getLastName());
+                        editor.apply();
+
+                    }
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+
+                        Toast.makeText(Login.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

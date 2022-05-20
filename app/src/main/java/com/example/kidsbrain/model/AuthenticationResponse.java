@@ -1,5 +1,4 @@
 package com.example.kidsbrain.model;
-
 public class AuthenticationResponse {
     private User user;
     private  String token;

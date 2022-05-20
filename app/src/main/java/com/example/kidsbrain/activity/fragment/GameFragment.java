@@ -31,8 +31,6 @@ public class GameFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game, container, false);
-        game = view.findViewById(R.id.game_text);
-        game.setText(sharedPreferences.getString("login",""));
         btnaddition=(Button) view.findViewById(R.id.btnaddition);
         return view;
 
