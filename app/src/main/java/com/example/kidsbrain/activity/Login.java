@@ -124,9 +124,9 @@ public class Login extends AppCompatActivity {
                 new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
-                        progressDialog.dismiss(); //dismiss progress dialog
                         Intent intent=new Intent(Login.this,Homes.class);
                         startActivity(intent);
+                        progressDialog.dismiss(); //dismiss progress dialog
                         User us = response.body();
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("token", token);

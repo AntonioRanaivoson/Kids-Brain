@@ -22,7 +22,7 @@
         <activity android:name=".activity.video.VideoPlay" android:screenOrientation="landscape"/>
         <activity
             android:name=".activity.Homes"
-            android:label="Home" />
+            android:label="Home" android:configChanges="uiMode"/>
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
