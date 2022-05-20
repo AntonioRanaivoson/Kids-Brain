@@ -32,6 +32,12 @@ public class User {
         this.password = password;
     }
 
+    public User(String firstName, String lastName, String login) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.login = login;
+    }
+
     public String get_id() {
         return _id;
     }

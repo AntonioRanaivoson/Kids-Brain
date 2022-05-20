@@ -9,6 +9,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -20,6 +21,9 @@ public interface UserService {
 
     @POST("user/signup")
     public Call<AuthenticationResponse> signUp(@Body User user);
+
+    @PUT("user/update")
+    public Call<User> modify(@Body User user, @Header("Authorization") String token);
 
     @GET("user/{userId}")
     public Call<User> getUserConnected(@Path("userId") String login, @Header("Authorization") String token);

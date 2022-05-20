@@ -18,7 +18,7 @@
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal|center_vertical"
                 android:layout_weight="1"
@@ -27,6 +27,19 @@
                 android:textColor="@color/white"
                 android:textSize="30dp"
                 android:textStyle="bold" />
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_margin="20dp"
+                android:background="#FCFAF9F9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:searchHintIcon="?android:attr/actionModeWebSearchDrawable"
+                app:searchIcon="?android:attr/actionModeWebSearchDrawable" />
+
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -39,5 +52,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
+
+
     </LinearLayout>
 </ScrollView>

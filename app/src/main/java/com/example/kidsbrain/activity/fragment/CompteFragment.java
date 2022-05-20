@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import com.example.kidsbrain.R;
+import com.example.kidsbrain.activity.CompteUpdate;
 import com.example.kidsbrain.activity.Homes;
 import com.example.kidsbrain.activity.Login;
 import com.example.kidsbrain.instance.RetrofitClientInstance;
@@ -38,10 +39,9 @@ import retrofit2.Response;
 
 public class CompteFragment extends Fragment {
     private SharedPreferences sharedPreferences;
-    private Button deconnect;
+    private Button deconnect,modifier;
     String token,nomS,prenomS,emailS;
     TextView nom_prenom,nom,prenom,email;
-    Switch theme_mod;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +63,6 @@ public class CompteFragment extends Fragment {
         prenom.setText(prenomS);
         email = view.findViewById(R.id.email);
         email.setText(emailS);
-        theme_mod = (Switch) view.findViewById(R.id.theme_mod);
         deconnect = (Button) view.findViewById(R.id.btndeconnect);
         deconnect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,17 +70,11 @@ public class CompteFragment extends Fragment {
                 logout();
             }
         });
-        // Set a checked change listener for switch button
-        theme_mod.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        modifier = (Button) view.findViewById(R.id.btnmodifier);
+        modifier.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                }
-                else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                }
-                getActivity().recreate();
+            public void onClick(View v) {
+                modifier();
             }
         });
         return view;
@@ -90,6 +83,10 @@ public class CompteFragment extends Fragment {
     public void logout(){
         sharedPreferences.edit().clear().commit();
         startActivity(new Intent(getContext(), Login.class));
+    }
+
+    public void modifier(){
+        startActivity(new Intent(getContext(), CompteUpdate.class));
     }
 
     @Override

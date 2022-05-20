@@ -63,7 +63,10 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.CustomViewHo
 
         }
     }
-
+    public void filterList(List<Video> filterllist) {
+        dataList = filterllist;
+        notifyDataSetChanged();
+    }
     @Override
     public VideoAdapter.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());

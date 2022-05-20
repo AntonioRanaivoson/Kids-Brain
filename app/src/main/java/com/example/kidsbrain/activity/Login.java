@@ -133,6 +133,7 @@ public class Login extends AppCompatActivity {
                         editor.putString("login", us.getLogin());
                         editor.putString("prenom", us.getFirstName());
                         editor.putString("nom", us.getLastName());
+                        editor.putString("mdp", us.getPassword());
                         editor.apply();
 
                     }
