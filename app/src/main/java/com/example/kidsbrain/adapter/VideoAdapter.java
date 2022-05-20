@@ -21,6 +21,7 @@ import com.brightcove.player.view.BrightcoveExoPlayerVideoView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
+import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.resource.bitmap.ParcelFileDescriptorBitmapDecoder;
 import com.bumptech.glide.load.resource.bitmap.VideoBitmapDecoder;
 import com.bumptech.glide.request.RequestOptions;
@@ -79,11 +80,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.CustomViewHo
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //VideoPlay play = new VideoPlay(dataList.get(holder.getAdapterPosition()).getUrl());
-                        //play.startActivity(new Intent());
                         Intent intent=new Intent(view.getContext(), VideoPlay.class);
                         Bundle b = new Bundle();
-                        b.putString("url", dataList.get(holder.getAdapterPosition()).getUrl()); //Your id
+                        b.putString("url", dataList.get(holder.getAdapterPosition()).getUrl());
                         intent.putExtras(b);
                         view.getContext().startActivity(intent);
                     }
@@ -91,11 +90,11 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.CustomViewHo
         );
 
         RequestOptions requestOptions = new RequestOptions();
-        long interval = 500000;
-        requestOptions.frame(interval);
+        requestOptions.frame(7000000);
         Glide.with(context)
                 .asBitmap()
                 .load(dataList.get(position).getUrl())
+                .thumbnail()
                 .apply(requestOptions)
                 .centerCrop()
                 .placeholder(R.color.black)

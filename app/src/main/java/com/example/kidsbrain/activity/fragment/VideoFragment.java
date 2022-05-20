@@ -70,7 +70,7 @@ public class VideoFragment extends Fragment {
               @Override
               public void onFailure(Call<List<Video>> call, Throwable t) {
                   progressDoalog.dismiss();
-                  Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                  Toast.makeText(getContext(), "Veuillez-vous reconnecter", Toast.LENGTH_SHORT).show();
               }
           });
 
