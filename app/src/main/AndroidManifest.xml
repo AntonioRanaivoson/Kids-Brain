@@ -16,6 +16,7 @@
         android:theme="@style/Theme.KidsBrain"
         android:usesCleartextTraffic="true">
         <activity android:name=".activity.game.SoustractionGame"></activity>
+        <activity android:name=".activity.game.CouleurActivity"></activity>
         <activity android:name=".activity.game.AdditionGame" />
         <activity android:name=".activity.Inscription" />
         <activity android:name=".activity.Login" />

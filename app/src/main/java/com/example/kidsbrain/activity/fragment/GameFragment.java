@@ -19,11 +19,13 @@ import androidx.fragment.app.Fragment;
 
 import com.example.kidsbrain.R;
 import com.example.kidsbrain.activity.game.AdditionGame;
+import com.example.kidsbrain.activity.game.CouleurActivity;
 import com.example.kidsbrain.activity.game.SoustractionGame;
+import com.example.kidsbrain.model.Notification;
 
 public class GameFragment extends Fragment {
     private TextView game_titre,infos;
-    Button btnaddition,btnadditioninfo,btnsoustraction,btninfosoustraction;
+    Button btnaddition,btnadditioninfo,btnsoustraction,btninfosoustraction,btncouleur,btninfocouleur;
     Dialog mDialog;
     private SharedPreferences sharedPreferences;
     @Override
@@ -36,10 +38,13 @@ public class GameFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game, container, false);
+        Notification.createNotification(view.getContext());
         btnaddition=(Button) view.findViewById(R.id.btnaddition);
         btnadditioninfo=(Button) view.findViewById(R.id.btnadditioninfo);
         btnsoustraction=(Button) view.findViewById(R.id.btnsoustraction);
         btninfosoustraction=(Button) view.findViewById(R.id.btninfosoustraction);
+        btncouleur=(Button) view.findViewById(R.id.btncouleur);
+        btninfocouleur=(Button) view.findViewById(R.id.btninfocouleur);
         mDialog=new Dialog(view.getContext());
         return view;
 
@@ -89,5 +94,36 @@ public class GameFragment extends Fragment {
                 mDialog.show();
             }
         });
+
+
+        btncouleur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(v.getContext(), CouleurActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+        btninfocouleur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDialog.setContentView(R.layout.popup);
+                game_titre=mDialog.findViewById(R.id.gametitre);
+                infos=mDialog.findViewById(R.id.infos);
+                game_titre.setText("Couleur");
+                infos.setText("Consiste a choisir la bonne couleur ");
+                mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                mDialog.show();
+            }
+        });
+
+
+
     }
+
+
+
+
 }

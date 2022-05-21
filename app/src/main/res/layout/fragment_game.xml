@@ -186,7 +186,7 @@
                         android:layout_height="45dp"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Addition"
+                        android:text="Couleur"
                         android:textColor="@color/cardview_dark_background"
                         android:textSize="25dp"
                         android:textStyle="bold" />
@@ -213,14 +213,14 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/btnaddition4"
+                        android:id="@+id/btncouleur"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="Jouer" />
 
                     <Button
-                        android:id="@+id/btnadditioninfo4"
+                        android:id="@+id/btninfocouleur"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"

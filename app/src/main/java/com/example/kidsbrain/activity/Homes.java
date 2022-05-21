@@ -13,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.kidsbrain.R;
+import com.example.kidsbrain.model.Notification;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Homes extends AppCompatActivity {
@@ -32,6 +33,8 @@ public class Homes extends AppCompatActivity {
         bottomNavView = findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(bottomNavView, navController);
+        Notification.createNotification(this);
+
     }
     @Override
     protected void onPostResume(){
