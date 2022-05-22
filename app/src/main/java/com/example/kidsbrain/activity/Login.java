@@ -97,12 +97,12 @@ public class Login extends AppCompatActivity {
                  new Callback<AuthenticationResponse>() {
                      @Override
                      public void onResponse(Call<AuthenticationResponse> call, Response<AuthenticationResponse> response) {
-                         progressDialog.dismiss();
                          if(response.body()!= null) {
                              user = response.body().getUser();
                              token = response.body().getToken();
-                             doSave(token,response.body().getUser().getLogin());
+                             doSave(progressDialog,token,response.body().getUser().getLogin());
                          }else {
+                             progressDialog.dismiss();
                              Toast.makeText(Login.this, "Login ou mots de passe incorrecte", Toast.LENGTH_SHORT).show();
                          }
                      }
@@ -118,7 +118,7 @@ public class Login extends AppCompatActivity {
     /**
      * Fonction save preference
      */
-    public void doSave(String token,String login)  {
+    public void doSave(ProgressDialog progressDialog,String token,String login)  {
         UserService userservice = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
         userservice.getUserConnected(login,"Bearer " + token).enqueue(
                 new Callback<User>() {
@@ -134,11 +134,12 @@ public class Login extends AppCompatActivity {
                         editor.putString("nom", us.getLastName());
                         editor.putString("mdp", us.getPassword());
                         editor.apply();
+                        progressDialog.dismiss();
                     }
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-
                         Toast.makeText(Login.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
                 });
     }
