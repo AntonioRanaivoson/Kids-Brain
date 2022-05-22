@@ -120,13 +120,14 @@ public class Login extends AppCompatActivity {
      */
     public void doSave(ProgressDialog progressDialog,String token,String login)  {
         UserService userservice = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
+        progressDialog.dismiss();
         userservice.getUserConnected(login,"Bearer " + token).enqueue(
                 new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         Intent intent=new Intent(Login.this,Homes.class);
                         startActivity(intent);
-                        progressDialog.dismiss(); //dismiss progress dialog
+                       //dismiss progress dialog
                         User us = response.body();
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("token", token);
@@ -135,7 +136,6 @@ public class Login extends AppCompatActivity {
                         editor.putString("nom", us.getLastName());
                         editor.putString("mdp", us.getPassword());
                         editor.apply();
-
                     }
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
