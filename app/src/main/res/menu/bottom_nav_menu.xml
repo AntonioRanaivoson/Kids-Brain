@@ -12,11 +12,6 @@
         android:title="@string/title_video"/>
 
     <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications"/>
-
-    <item
     android:id="@+id/navigation_compte"
     android:icon="@drawable/_200769_user_avatar_profile_people_icon"
     android:title="@string/title_compte"/>

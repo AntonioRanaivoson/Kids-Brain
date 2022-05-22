@@ -18,11 +18,6 @@
         tools:layout="@layout/fragment_video" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.kidsbrain.activity.fragment.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
-    <fragment
         android:id="@+id/navigation_compte"
         android:name="com.example.kidsbrain.activity.fragment.CompteFragment"
         android:label="@string/title_compte"

@@ -103,7 +103,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
-        android:layout_alignParentBottom="true">
+        android:layout_marginTop="425dp">
 
 
         <LinearLayout
@@ -121,6 +121,7 @@
                 android:textSize="20sp" />
 
             <Button
+
                 android:layout_width="232dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

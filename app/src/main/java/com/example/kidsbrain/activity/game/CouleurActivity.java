@@ -2,6 +2,7 @@ package com.example.kidsbrain.activity.game;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +33,7 @@ public class CouleurActivity extends AppCompatActivity {
     private void init(){
         this.txtCouleur = (TextView)findViewById(R.id.txtCouleur);
         this.txtMarina = (TextView)findViewById(R.id.txtMarina);
+        txtMarina.setText("");
         initColors();
         btnReessayer = (Button)findViewById(R.id.btnReessayerCouleur);
         btnReessayer.setOnClickListener(new View.OnClickListener(){
@@ -59,17 +61,31 @@ public class CouleurActivity extends AppCompatActivity {
         Couleur couleur = couleurs.get(indice);
         bouton.setBackgroundColor(couleur.getColor());
         bouton.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View view) {
                 if(indice == indiceCouleurMarina){
                     txtMarina.setText("BONNE REPONSE");
                     txtMarina.setTextColor(Color.parseColor("#09FD21"));
+                    Handler handler = new Handler();
+                    final Runnable r = new Runnable() {
+                        @Override
+                        public void run() {
+                            init();
+                        }
+                    };
+                    handler.postDelayed(r,1000);
                 }
                 else{
-                    Log.d("DISO", couleurs.get(indice).getNomCouleur());
                     txtMarina.setText("MAUVAISE REPONSE");
                     txtMarina.setTextColor(Color.parseColor("#F82E03"));
+                    Handler handler = new Handler();
+                    final Runnable r = new Runnable() {
+                        @Override
+                        public void run() {
+                            txtMarina.setText("");
+                        }
+                    };
+                    handler.postDelayed(r,1000);
                 }
             }
         });

@@ -107,16 +107,18 @@ public class VideoFragment extends Fragment {
 
     private void filter(String text) {
        List<Video> filteredlist = new ArrayList<Video>();
-        for (Video item : videos) {
-            if (item.getTitre().toLowerCase().contains(text.toLowerCase()) || item.getDescription().toLowerCase().contains(text.toLowerCase())) {
-                filteredlist.add(item);
-            }
-        }
-        if (filteredlist.isEmpty()) {
-            Toast.makeText(getContext(), "Aucun résultat..", Toast.LENGTH_SHORT).show();
-        } else {
-            adapter.filterList(filteredlist);
-        }
+       for (Video item : videos) {
+           if (item.getTitre().toLowerCase().contains(text.toLowerCase()) || item.getDescription().toLowerCase().contains(text.toLowerCase())) {
+               filteredlist.add(item);
+           }
+       }
+       if (filteredlist.isEmpty()) {
+           Toast.makeText(getContext(), "Aucun résultat..", Toast.LENGTH_SHORT).show();
+           adapter.filterList(filteredlist);
+       } else {
+           adapter.filterList(filteredlist);
+       }
+
     }
 
     @Override
