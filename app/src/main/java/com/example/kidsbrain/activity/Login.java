@@ -97,11 +97,11 @@ public class Login extends AppCompatActivity {
                  new Callback<AuthenticationResponse>() {
                      @Override
                      public void onResponse(Call<AuthenticationResponse> call, Response<AuthenticationResponse> response) {
-
+                         progressDialog.dismiss();
                          if(response.body()!= null) {
                              user = response.body().getUser();
                              token = response.body().getToken();
-                             doSave(progressDialog,token,response.body().getUser().getLogin());
+                             doSave(token,response.body().getUser().getLogin());
                          }else {
                              Toast.makeText(Login.this, "Login ou mots de passe incorrecte", Toast.LENGTH_SHORT).show();
                          }
@@ -118,16 +118,14 @@ public class Login extends AppCompatActivity {
     /**
      * Fonction save preference
      */
-    public void doSave(ProgressDialog progressDialog,String token,String login)  {
+    public void doSave(String token,String login)  {
         UserService userservice = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
-        progressDialog.dismiss();
         userservice.getUserConnected(login,"Bearer " + token).enqueue(
                 new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         Intent intent=new Intent(Login.this,Homes.class);
                         startActivity(intent);
-                       //dismiss progress dialog
                         User us = response.body();
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("token", token);
