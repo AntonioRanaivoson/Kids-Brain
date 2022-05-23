@@ -29,6 +29,7 @@ public class Inscription extends AppCompatActivity {
     protected EditText mdp;
     protected Button enregister;
     private User user;
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,7 @@ public class Inscription extends AppCompatActivity {
         prenom = (EditText) findViewById(R.id.prenom);
         mail = (EditText) findViewById(R.id.mail);
         mdp = (EditText) findViewById(R.id.mdp);
+        sharedPreferences= this.getSharedPreferences("userIdentity", Context.MODE_PRIVATE);
         /**
          * Boutton fonction Inscription
          */
@@ -77,13 +79,13 @@ public class Inscription extends AppCompatActivity {
                 new Callback<AuthenticationResponse>() {
                     @Override
                     public void onResponse(Call<AuthenticationResponse> call, Response<AuthenticationResponse> response) {
-                        progressDialog.dismiss(); //dismiss progress dialog
                         if(response.body()!= null) {
                             user = response.body().getUser();
-                            doSave(response.body().getToken(),user.getLogin());
+                            doSave(progressDialog,response.body().getToken(),user.getLogin());
                             Intent intent=new Intent(Inscription.this,Homes.class);
                             startActivity(intent);
                         }else {
+                            progressDialog.dismiss(); //dismiss progress dialog
                             Toast.makeText(Inscription.this, "Email déjà utilisé", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -98,11 +100,30 @@ public class Inscription extends AppCompatActivity {
     /**
      * Fonction save preference
      */
-    public void doSave(String token,String login)  {
-        SharedPreferences sharedPreferences= this.getSharedPreferences("userIdentity", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("token", token);
-        editor.putString("login", login);
-        editor.apply();
+    public void doSave(ProgressDialog progressDialog,String token,String login)  {
+        UserService userservice = RetrofitClientInstance.getRetrofitInstance().create(UserService.class);
+        userservice.getUserConnected(login,"Bearer " + token).enqueue(
+                new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        Intent intent=new Intent(Inscription.this,Homes.class);
+                        startActivity(intent);
+                        startActivity(intent);
+                        User us = response.body();
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("token", token);
+                        editor.putString("login", us.getLogin());
+                        editor.putString("prenom", us.getFirstName());
+                        editor.putString("nom", us.getLastName());
+                        editor.putString("mdp", us.getPassword());
+                        editor.apply();
+                        progressDialog.dismiss();
+                    }
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Toast.makeText(Inscription.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+                });
     }
 }

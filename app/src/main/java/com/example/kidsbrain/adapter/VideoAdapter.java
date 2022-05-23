@@ -20,6 +20,7 @@ import com.brightcove.player.model.DeliveryType;
 import com.brightcove.player.view.BrightcoveExoPlayerVideoView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.resource.bitmap.ParcelFileDescriptorBitmapDecoder;
@@ -93,11 +94,12 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.CustomViewHo
         );
 
         RequestOptions requestOptions = new RequestOptions();
-        requestOptions.frame(7000000);
+        requestOptions.frame(5000000);
         Glide.with(context)
                 .asBitmap()
                 .load(dataList.get(position).getUrl())
                 .thumbnail()
+                .diskCacheStrategy(DiskCacheStrategy.DATA)
                 .apply(requestOptions)
                 .centerCrop()
                 .placeholder(R.color.black)
